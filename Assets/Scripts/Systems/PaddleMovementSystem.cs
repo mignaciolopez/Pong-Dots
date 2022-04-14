@@ -1,4 +1,4 @@
-/*using Unity.Entities;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
@@ -15,4 +15,4 @@ public partial class PaddleMovementSystem : SystemBase
             translation.Value.y = math.clamp(translation.Value.y + (data.speed * data.direction * Time.DeltaTime), -yBound, yBound);
         }).Run();
     }
-}*/
+}

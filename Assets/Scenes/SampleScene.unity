@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midLine: {fileID: 1531317825}
   xBound: 9.5
-  yBound: 4.75
+  yBound: 3.85
   ballSpeed: 4
   respawnDelay: 2
   numberOfPlayers: 2
@@ -299,6 +299,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8367963572527552317, guid: 961d16c3cfed85f4a92c6bf0df3248c9, type: 3}
+      propertyPath: upKey
+      value: 273
+      objectReference: {fileID: 0}
+    - target: {fileID: -8367963572527552317, guid: 961d16c3cfed85f4a92c6bf0df3248c9, type: 3}
+      propertyPath: downKey
+      value: 274
+      objectReference: {fileID: 0}
     - target: {fileID: 2207801914759007819, guid: 961d16c3cfed85f4a92c6bf0df3248c9, type: 3}
       propertyPath: m_RootOrder
       value: 10

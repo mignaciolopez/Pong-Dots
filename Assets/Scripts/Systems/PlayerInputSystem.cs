@@ -1,4 +1,4 @@
-/*using Unity.Entities;
+using Unity.Entities;
 using UnityEngine;
 
 [AlwaysSynchronizeSystem]
@@ -14,4 +14,4 @@ public partial class PlayerInputSystem : SystemBase
 
         }).Run();
     }
-}*/
+}

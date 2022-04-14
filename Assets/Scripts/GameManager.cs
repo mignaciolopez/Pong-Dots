@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.Entities;
+using Unity.Entities;
 using UnityEngine;
 using TMPro;
 
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI mainText;
     public TextMeshProUGUI[] playerTexts;
 
-    //Entity ballEntityPrefab;
-   // EntityManager manager;
+    Entity ballEntityPrefab;
+    EntityManager manager;
 
     WaitForSeconds oneSecond;
     WaitForSeconds delay;
