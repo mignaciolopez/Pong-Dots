@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
+using Unity.Physics;
+using Unity.Mathematics;
 using UnityEngine;
 using TMPro;
 
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     /// <gamevars>
     /// 
     [SerializeField] GameObject midLine;
+    [SerializeField] GameObject ballPrefab;
     public float xBound = 9.5f;
     public float yBound = 4.75f;
     public float ballSpeed = 4f;
@@ -72,6 +75,20 @@ public class GameManager : MonoBehaviour
 
         mainText.text = "";
 
+        manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var store = new BlobAssetStore();
+        {
+            //GameObjectConversionSettings settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+            //ballEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(ballPrefab, settings);
+
+            ballEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(
+                ballPrefab, new GameObjectConversionSettings(
+                    World.DefaultGameObjectInjectionWorld,
+                    GameObjectConversionUtility.ConversionFlags.AssignName,
+                    store
+                    ));
+        }
+
         StartCoroutine(CountDownAndSpawnBall());
     }
 
@@ -79,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         midLine.SetActive(false);
 
-        playerScores[(playerID - 1)]++;
+        playerScores[(playerID)]++;
 
         for (int i = 0; i < numberOfPlayers; i++)
             playerTexts[i].text = playerScores[i].ToString();
@@ -103,10 +120,10 @@ public class GameManager : MonoBehaviour
 
         mainText.text = "";
 
-        midLine.SetActive(true);
-
         ActivateScores();
         SpawnBall();
+
+        midLine.SetActive(true);
     }
 
     void ActivateScores()
@@ -117,6 +134,21 @@ public class GameManager : MonoBehaviour
 
     void SpawnBall()
     {
-        
+        Entity ball = manager.Instantiate(ballEntityPrefab);
+
+        Vector3 direction = Vector3.zero;
+        direction.x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        direction.y = UnityEngine.Random.Range(-.5f, .5f);
+        direction.Normalize();
+
+        Vector3 velocity = direction * ballSpeed;
+
+        PhysicsVelocity pVelocity = new PhysicsVelocity()
+        {
+            Linear = velocity,
+            Angular = float3.zero
+        };
+
+        manager.AddComponentData(ball, pVelocity);
     }
 }
